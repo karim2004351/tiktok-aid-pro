@@ -1,0 +1,17 @@
+# render.yaml
+services:
+  - type: web
+    name: tiktok-aid-backend
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && node index.js
+    envVars:
+      - key: PORT
+        value: 10000  # Render سيتجاهلها ويحدد قيمة، لكن تأكد من استخدام process.env.PORT
+
+  - type: static
+    name: tiktok-aid-frontend
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/dist
+    plan: free
